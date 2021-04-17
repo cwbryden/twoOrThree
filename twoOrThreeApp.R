@@ -82,3 +82,26 @@ server <- function(input, output) {
 
 # Run the application 
 shinyApp(ui = ui, server = server)
+
+
+
+# nba_df <- read_csv("C:/Users/Christopher/Downloads/Stat 327/Final Project/2or3/nba2or3_2021_player_stats.csv")
+# #View(nba_df)
+# 
+# nba_df <- data.frame(nba_df)
+# #View(nba_df)
+# 
+# twoOrThree <- function(n, player){
+# 
+#     two <- 0
+#     three <- 0
+#     if (player == kevinDurant){
+#         two <- nba_df$cells$getvalue(1,3)
+#         three <- nba_df$cells$getvalue(1,4)
+#     }
+# 
+# }
+# 
+# twoOrThree(1, kevinDurant)
+
+
