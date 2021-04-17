@@ -67,8 +67,23 @@ server <- function(input, output) {
           "and a 3 pt score of ", data$`3pt%`[which(data$X1==input$player)])
   })
   
-  
-  output$distPlot <- renderPlot({
+  makeOrMiss <- function(number_of_shots, player){
+    for(i in 1: number_of_shots){
+      shot2 <- rbinom(1, size = number_of_shots, replace = TRUE, prob = data$`2pt%`[which(data$X1==input$player)])
+      shot3 <- rbinom(1, size = number_of_shots, replace = TRUE, prob = data$`3pt%`[which(data$X1==input$player)])
+    if(shot2 == 1){
+      success2 <- success2 + 1
+      points2 <- 2 * success2
+    }
+    if(shot3 == 1){
+      success3 <- success3 + 1
+      points3 <- 3 * success
+    }
+    
+  cat(points2,points3)
+    }
+  }
+    output$distPlot <- renderPlot({
     # generate bins based on input$bins from ui.R
     x    <- faithful[, 2]
     bins <- seq(min(x), max(x), length.out = input$bins + 1)
@@ -77,8 +92,8 @@ server <- function(input, output) {
     hist(x, breaks = bins, col = 'darkgray', border = 'white')
   })
   
-  
 }
+
 
 # Run the application 
 shinyApp(ui = ui, server = server)
@@ -105,3 +120,16 @@ shinyApp(ui = ui, server = server)
 # twoOrThree(1, kevinDurant)
 
 
+# makeOrMiss <- function(number_of_shots, player){
+#   success <- 0
+#   points <- 3 * success
+#   for(i in 1: number_of_shots){
+#     shot2 <- rbinom(1, size = number_of_shots, replace = TRUE, prob = data$`2pt%`[which(data$X1==input$player))
+#      shot3 <- rbinom(1, size = number_of_shots, replace = TRUE, prob = data$`3pt%`[which(data$X1==input$player)])
+#     if(shot == 1){
+#       success <- success + 1
+#       points <- 3 * success
+#     }
+#   }
+#   print(points())
+# }
