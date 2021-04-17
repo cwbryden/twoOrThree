@@ -8,53 +8,76 @@
 #
 
 library(shiny)
+library(readr)
+
+data <- read_csv("data.csv")
+data$X1 <- c("Kevin Durant",
+             "Steph Curry",
+             "Damian Lillard",
+             "LeBron James",
+             "Saddiq Bey",
+             "James Harden",
+             "Kyrie Irving",
+             "Trae Young",
+             "Lamelo Ball",
+             "Luka Doncic")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-
-    # Application title
-    titlePanel("Points by Two Or Three by Player"),
-
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("shots",
-                        "Number of shots:",
-                        min = 1,
-                        max = 100000,
-                        value = 50),
-        
-            selectInput(inputId = "player",
-                    label = "What player would you like to simmulate?",
-                    choices = c("Kevin Durant",
-                                "Steph Curry",
-                                "Damian Lillard",
-                                "LeBron James",
-                                "Saddiq Bey",
-                                "James Harden",
-                                "Kyrie Irving",
-                                "Trae Young",
-                                "Lamelo Ball",
-                                "Luka Doncic"))),
-
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("linePlot")
-        )
+  
+  # Application title
+  titlePanel("Points by Two Or Three by Player"),
+  
+  # Sidebar with a slider input for number of bins 
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("shots",
+                  "Number of shots:",
+                  min = 1,
+                  max = 100000,
+                  value = 50),
+      
+      selectInput(inputId = "player",
+                  label = "What player would you like to simmulate?",
+                  choices = c("Kevin Durant",
+                              "Steph Curry",
+                              "Damian Lillard",
+                              "LeBron James",
+                              "Saddiq Bey",
+                              "James Harden",
+                              "Kyrie Irving",
+                              "Trae Young",
+                              "Lamelo Ball",
+                              "Luka Doncic"))),
+    
+    # Show a plot of the generated distribution
+    mainPanel(
+      plotOutput("linePlot"),
+      textOutput("selected_var")
     )
+  )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
-    })
+  
+  output$selected_var <- renderText({
+    paste("You have selected", input$player)
+    paste(input$player, "has a 2pt score of ", data$`2pt%`[which(data$X1==input$player)],
+          "and a 3 pt score of ", data$`3pt%`[which(data$X1==input$player)])
+  })
+  
+  
+  output$distPlot <- renderPlot({
+    # generate bins based on input$bins from ui.R
+    x    <- faithful[, 2]
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    
+    # draw the histogram with the specified number of bins
+    hist(x, breaks = bins, col = 'darkgray', border = 'white')
+  })
+  
+  
 }
 
 # Run the application 
