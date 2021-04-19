@@ -31,11 +31,8 @@ ui <- fluidPage(
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-      sliderInput("shots",
-                  "Number of shots:",
-                  min = 1,
-                  max = 100000,
-                  value = 50),
+      textInput("shots",
+                  "Number of shots:"),
       
       selectInput(inputId = "player",
                   label = "What player would you like to simmulate?",
@@ -67,29 +64,37 @@ server <- function(input, output) {
           "and a 3 pt score of ", data$`3pt%`[which(data$X1==input$player)])
   })
   
-  makeOrMiss <- function(number_of_shots, player){
-    for(i in 1: number_of_shots){
-      shot2 <- rbinom(1, size = number_of_shots, replace = TRUE, prob = data$`2pt%`[which(data$X1==input$player)])
-      shot3 <- rbinom(1, size = number_of_shots, replace = TRUE, prob = data$`3pt%`[which(data$X1==input$player)])
-    if(shot2 == 1){
-      success2 <- success2 + 1
-      points2 <- 2 * success2
-    }
-    if(shot3 == 1){
-      success3 <- success3 + 1
-      points3 <- 3 * success
-    }
+  shot_input <- reactive(input$shots)
+ shot <- c("Make", "Miss")
+  #makeOrMiss <- function(number_of_shots, player){
+    for(i in 1: shot_input){
+      shot2 <- sample(shot, size = 1, replace = TRUE, prob = c(data$`2pt%`[which(data$X1==input$player)]))
+      shot3 <- sample(shot, size = 1, replace = TRUE, prob = c(data$`3pt%`[which(data$X1==input$player)]))
+      
+      if(shot2 == "Make"){
+        success2 <- success2 + 1
+        points2 <- 2 * success2
+      }
+      if(shot3 == "Make"){
+        success3 <- success3 + 1
+        points3 <- 3 * success
+      }
     
-  cat(points2,points3)
+    
+  #return(points2,points3)
+    data2 <- data.frame(cbind(points2,points3))
     }
-  }
-    output$distPlot <- renderPlot({
+  #}
+  
+  
+    output$linePlot <- renderPlot({
+    #ggplot2()
     # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2]
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    #x    <- faithful[, 2]
+    #bins <- seq(min(x), max(x), length.out = input$bins + 1)
     
     # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    #hist(x, breaks = bins, col = 'darkgray', border = 'white')
   })
   
 }
