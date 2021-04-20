@@ -9,6 +9,7 @@
 
 library(shiny)
 library(readr)
+library(ggplot2)
 
 data <- read_csv("data.csv")
 data$X1 <- c("Kevin Durant",
@@ -32,7 +33,8 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       textInput("shots",
-                  "Number of shots:"),
+                  "Number of shots:",
+                value = 100),
       
       selectInput(inputId = "player",
                   label = "What player would you like to simmulate?",
@@ -58,83 +60,50 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
-  output$selected_var <- renderText({
-    paste("You have selected", input$player)
-    paste(input$player, "has a 2pt score of ", data$`2pt%`[which(data$X1==input$player)],
-          "and a 3 pt score of ", data$`3pt%`[which(data$X1==input$player)])
-  })
-  
-  shot_input <- reactive(input$shots)
- shot <- c("Make", "Miss")
-  #makeOrMiss <- function(number_of_shots, player){
-    for(i in 1: shot_input){
-      shot2 <- sample(shot, size = 1, replace = TRUE, prob = c(data$`2pt%`[which(data$X1==input$player)]))
-      shot3 <- sample(shot, size = 1, replace = TRUE, prob = c(data$`3pt%`[which(data$X1==input$player)]))
-      
-      if(shot2 == "Make"){
-        success2 <- success2 + 1
-        points2 <- 2 * success2
-      }
-      if(shot3 == "Make"){
-        success3 <- success3 + 1
-        points3 <- 3 * success
-      }
-    
-    
-  #return(points2,points3)
-    data2 <- data.frame(cbind(points2,points3))
-    }
-  #}
-  
-  
-    output$linePlot <- renderPlot({
-    #ggplot2()
-    # generate bins based on input$bins from ui.R
-    #x    <- faithful[, 2]
-    #bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
-    # draw the histogram with the specified number of bins
-    #hist(x, breaks = bins, col = 'darkgray', border = 'white')
-  })
-  
+ shot_input <- reactive(input$shots)
+ player <- reactive(input$player)
+ 
+ score <- function(shot_input, player){
+   
+   shot2 <- c(2, 0)
+   shot3 <- c(3, 0)
+   
+   kd2_prob <- c(data$twoptmake[which(data$X1==input$player)], data$twoptmiss[which(data$X1==input$player)])
+   kd3_prob <- c(data$threeptmake[which(data$X1==input$player)], data$threeptmiss[which(data$X1==input$player)])
+   
+   
+   kd2samp <- sample(shot2, size = shot_input, replace = TRUE, prob = kd2_prob)
+   kd3samp <- sample(shot3, size = shot_input, replace = TRUE, prob = kd3_prob)
+   
+   kd2cumulative <- cumsum(kd2samp)
+   kd3cumulative <- cumsum(kd3samp)
+   
+   # kd2cumulative
+   # kd3cumulative
+   
+   shot_attempt <- seq(1, number_of_shots, by = 1)
+   
+   kd_df <- data.frame(shot_attempt, kd2cumulative, kd3cumulative)
+   #kd_df
+   
+   output$plot <- renderPlot({
+       ggplot()+
+       geom_line(data = kd_df, aes(x = shot_attempt,
+                                   y = kd2cumulative),
+                 col = "red") +
+       geom_line(data = kd_df, aes(x = shot_attempt,
+                                   y = kd3cumulative),
+                 col = "blue") +
+       labs(title = "2 Pointer v. 3 Pointer",
+            subtitle = "By 2020-21 Shooting Percentages",
+            y = "Points Scored",
+            x = "Shots Attempted")
+     theme_minimal()
+   })
 }
-
+    
+    
+}
 
 # Run the application 
 shinyApp(ui = ui, server = server)
-
-
-
-# nba_df <- read_csv("C:/Users/Christopher/Downloads/Stat 327/Final Project/2or3/nba2or3_2021_player_stats.csv")
-# #View(nba_df)
-# 
-# nba_df <- data.frame(nba_df)
-# #View(nba_df)
-# 
-# twoOrThree <- function(n, player){
-# 
-#     two <- 0
-#     three <- 0
-#     if (player == kevinDurant){
-#         two <- nba_df$cells$getvalue(1,3)
-#         three <- nba_df$cells$getvalue(1,4)
-#     }
-# 
-# }
-# 
-# twoOrThree(1, kevinDurant)
-
-
-# makeOrMiss <- function(number_of_shots, player){
-#   success <- 0
-#   points <- 3 * success
-#   for(i in 1: number_of_shots){
-#     shot2 <- rbinom(1, size = number_of_shots, replace = TRUE, prob = data$`2pt%`[which(data$X1==input$player))
-#      shot3 <- rbinom(1, size = number_of_shots, replace = TRUE, prob = data$`3pt%`[which(data$X1==input$player)])
-#     if(shot == 1){
-#       success <- success + 1
-#       points <- 3 * success
-#     }
-#   }
-#   print(points())
-# }
