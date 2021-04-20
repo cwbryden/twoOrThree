@@ -1,0 +1,228 @@
+---
+title: "NBA 2 vs 3 pointers"
+author: "Chris Bryden"
+date: "4/20/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(reshape2)
+library(VGAM)
+library(readr)
+```
+
+
+### Kevin Durant
+
+```{r}
+kd <- function(number_of_shots){
+
+shot2 <- c(2, 0)
+shot3 <- c(3, 0)
+
+number_of_shots <- number_of_shots
+
+kd2_prob <- c(0.576, 0.424)
+kd3_prob <- c(0.448, 0.552)
+
+
+kd2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = kd2_prob)
+kd3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = kd3_prob)
+
+kd2cumulative <- cumsum(kd2samp)
+kd3cumulative <- cumsum(kd3samp)
+
+# kd2cumulative
+# kd3cumulative
+
+shot_attempt <- seq(1, number_of_shots, by = 1)
+
+kd_df <- data.frame(shot_attempt, kd2cumulative, kd3cumulative)
+#kd_df
+
+kd_plot <- ggplot()+
+  geom_line(data = kd_df, aes(x = shot_attempt, 
+                              y = kd2cumulative),
+                              col = "red") +
+  geom_line(data = kd_df, aes(x = shot_attempt,
+                              y = kd3cumulative),
+                              col = "blue") +
+  labs(title = "Kevin Durant 2 Pointer v. 3 Pointer",
+       subtitle = "By 2020-21 Shooting Percentages",
+       y = "Points Scored",
+       x = "Shots Attempted")
+  theme_minimal()
+  
+kd_plot
+}
+
+kd(100)
+kd(200)
+kd(500)
+kd(1000)
+kd(10000)
+
+
+
+
+
+```
+
+### Steph Curry
+
+```{r}
+
+steph <- function(number_of_shots){
+
+shot2 <- c(2, 0)
+shot3 <- c(3, 0)
+
+number_of_shots <- 150
+
+steph2_prob <- c(0.58, 0.42)
+steph3_prob <- c(0.422, 0.578)
+
+
+steph2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = steph2_prob)
+steph3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = steph3_prob)
+
+steph2cumulative <- cumsum(steph2samp)
+steph3cumulative <- cumsum(steph3samp)
+
+# steph2cumulative
+# steph3cumulative
+
+shot_attempt <- seq(1, number_of_shots, by = 1)
+
+steph_df <- data.frame(shot_attempt, steph2cumulative, steph3cumulative)
+#steph_df
+
+steph_plot <- ggplot()+
+  geom_line(data = steph_df, aes(x = shot_attempt, 
+                              y = steph2cumulative),
+                              col = "red") +
+  geom_line(data = steph_df, aes(x = shot_attempt,
+                              y = steph3cumulative),
+                              col = "blue") +
+  labs(title = "Steph Curry 2 Pointer v. 3 Pointer",
+       subtitle = "By 2020-21 Shooting Percentages",
+       y = "Points Scored",
+       x = "Shots Attempted")
+  theme_minimal()
+  
+steph_plot
+
+}
+steph(100)
+steph(200)
+steph(500)
+steph(1000)
+steph(10000)
+
+```
+
+### Damian Lillard
+
+
+```{r}
+dame <- function(number_of_shots){
+shot2 <- c(2, 0)
+shot3 <- c(3, 0)
+
+number_of_shots <- number_of_shots
+
+dame2_prob <- c(0.51, 0.49)
+dame3_prob <- c(0.379, 0.621)
+
+
+dame2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = dame2_prob)
+dame3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = dame3_prob)
+
+dame2cumulative <- cumsum(dame2samp)
+dame3cumulative <- cumsum(dame3samp)
+
+# dame2cumulative
+# dame3cumulative
+
+shot_attempt <- seq(1, number_of_shots, by = 1)
+
+dame_df <- data.frame(shot_attempt, dame2cumulative, dame3cumulative)
+#dame_df
+
+dame_plot <- ggplot()+
+  geom_line(data = dame_df, aes(x = shot_attempt, 
+                              y = dame2cumulative),
+                              col = "red") +
+  geom_line(data = dame_df, aes(x = shot_attempt,
+                              y = dame3cumulative),
+                              col = "blue") +
+  labs(title = "Damian Lillard 2 Pointer v. 3 Pointer",
+       subtitle = "By 2020-21 Shooting Percentages",
+       y = "Points Scored",
+       x = "Shots Attempted")
+  theme_minimal()
+  
+dame_plot
+}
+
+dame(100)
+dame(200)
+dame(500)
+dame(1000)
+dame(10000)
+```
+
+
+
+```{r}
+lebron <- function(number_of_shots){
+
+shot2 <- c(2, 0)
+shot3 <- c(3, 0)
+
+number_of_shots <- number_of_shots
+
+lebron2_prob <- c(0.592, 0.408)
+lebron3_prob <- c(0.386, 0.614)
+
+
+lebron2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = lebron2_prob)
+lebron3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = lebron3_prob)
+
+lebron2cumulative <- cumsum(lebron2samp)
+lebron3cumulative <- cumsum(lebron3samp)
+
+# lebron2cumulative
+# lebron3cumulative
+
+shot_attempt <- seq(1, number_of_shots, by = 1)
+
+lebron_df <- data.frame(shot_attempt, lebron2cumulative, lebron3cumulative)
+#lebron_df
+
+lebron_plot <- ggplot()+
+  geom_line(data = lebron_df, aes(x = shot_attempt, 
+                              y = lebron2cumulative),
+                              col = "red") +
+  geom_line(data = lebron_df, aes(x = shot_attempt,
+                              y = lebron3cumulative),
+                              col = "blue") +
+  labs(title = "Lebron James 2 Pointer v. 3 Pointer",
+       subtitle = "By 2020-21 Shooting Percentages",
+       y = "Points Scored",
+       x = "Shots Attempted")
+  theme_minimal()
+  
+lebron_plot
+}
+
+lebron(100)
+lebron(200)
+lebron(500)
+lebron(1000)
+lebron(10000)
+```
+
