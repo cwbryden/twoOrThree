@@ -154,11 +154,11 @@ dame_df <- data.frame(shot_attempt, dame2cumulative, dame3cumulative)
 
 dame_plot <- ggplot()+
   geom_line(data = dame_df, aes(x = shot_attempt, 
-                              y = dame2cumulative),
-                              col = "red") +
+                              y = dame2cumulative,
+                              col = "2 point")) +
   geom_line(data = dame_df, aes(x = shot_attempt,
-                              y = dame3cumulative),
-                              col = "blue") +
+                              y = dame3cumulative,
+                              col = "3 point")) +
   labs(title = "Damian Lillard 2 Pointer v. 3 Pointer",
        subtitle = "By 2020-21 Shooting Percentages",
        y = "Points Scored",
@@ -205,11 +205,11 @@ lebron_df <- data.frame(shot_attempt, lebron2cumulative, lebron3cumulative)
 
 lebron_plot <- ggplot()+
   geom_line(data = lebron_df, aes(x = shot_attempt, 
-                              y = lebron2cumulative),
-                              col = "red") +
+                              y = lebron2cumulative,
+                              col = "2 point")) +
   geom_line(data = lebron_df, aes(x = shot_attempt,
-                              y = lebron3cumulative),
-                              col = "blue") +
+                              y = lebron3cumulative,
+                              col = "3 point")) +
   labs(title = "Lebron James 2 Pointer v. 3 Pointer",
        subtitle = "By 2020-21 Shooting Percentages",
        y = "Points Scored",
@@ -226,12 +226,158 @@ lebron(1000)
 lebron(10000)
 ```
 
+### Saddiq Bey
 
 ```{r}
-kd2samp
-kd3samp
+saddiq <- function(number_of_shots){
 
-kd2cumulative
-kd3cumulative
+shot2 <- c(2, 0)
+shot3 <- c(3, 0)
+
+number_of_shots <- number_of_shots
+
+saddiq2_prob <- c(0.473, 0.527)
+saddiq3_prob <- c(0.386, 0.614)
+
+
+saddiq2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = saddiq2_prob)
+saddiq3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = saddiq3_prob)
+
+saddiq2cumulative <- cumsum(saddiq2samp)
+saddiq3cumulative <- cumsum(saddiq3samp)
+
+# lebron2cumulative
+# lebron3cumulative
+
+shot_attempt <- seq(1, number_of_shots, by = 1)
+
+saddiq_df <- data.frame(shot_attempt, saddiq2cumulative, saddiq3cumulative)
+#lebron_df
+
+saddiq_plot <- ggplot()+
+  geom_line(data = saddiq_df, aes(x = shot_attempt, 
+                              y = saddiq2cumulative,
+                              col = "2 point")) +
+  geom_line(data = saddiq_df, aes(x = shot_attempt,
+                              y = saddiq3cumulative,
+                              col = "3 point")) +
+  labs(title = "Saddiq Bey 2 Pointer v. 3 Pointer",
+       subtitle = "By 2020-21 Shooting Percentages",
+       y = "Points Scored",
+       x = "Shots Attempted")
+  theme_minimal()
+  
+saddiq_plot
+}
+
+saddiq(100)
+saddiq(200)
+saddiq(500)
+saddiq(1000)
+saddiq(10000)
+```
+
+### James Harden
+
+```{r}
+harden <- function(number_of_shots){
+
+shot2 <- c(2, 0)
+shot3 <- c(3, 0)
+
+number_of_shots <- number_of_shots
+
+harden2_prob <- c(0.548, 0.452)
+harden3_prob <- c(0.361, 0.639)
+
+
+harden2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = harden2_prob)
+harden3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = harden3_prob)
+
+harden2cumulative <- cumsum(harden2samp)
+harden3cumulative <- cumsum(harden3samp)
+
+# lebron2cumulative
+# lebron3cumulative
+
+shot_attempt <- seq(1, number_of_shots, by = 1)
+
+harden_df <- data.frame(shot_attempt, harden2cumulative, harden3cumulative)
+#lebron_df
+
+harden_plot <- ggplot()+
+  geom_line(data = harden_df, aes(x = shot_attempt, 
+                              y = harden2cumulative,
+                              col = "2 point")) +
+  geom_line(data = harden_df, aes(x = shot_attempt,
+                              y = harden3cumulative,
+                              col = "3 point")) +
+  labs(title = "James Harden 2 Pointer v. 3 Pointer",
+       subtitle = "By 2020-21 Shooting Percentages",
+       y = "Points Scored",
+       x = "Shots Attempted")
+  theme_minimal()
+  
+harden_plot
+}
+
+harden(100)
+harden(200)
+harden(500)
+harden(1000)
+harden(10000)
+```
+
+
+### Kyrie Irving
+
+```{r}
+kyrie <- function(number_of_shots){
+
+shot2 <- c(2, 0)
+shot3 <- c(3, 0)
+
+number_of_shots <- number_of_shots
+
+lebron2_prob <- c(0.592, 0.408)
+lebron3_prob <- c(0.386, 0.614)
+
+
+lebron2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = lebron2_prob)
+lebron3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = lebron3_prob)
+
+lebron2cumulative <- cumsum(lebron2samp)
+lebron3cumulative <- cumsum(lebron3samp)
+
+# lebron2cumulative
+# lebron3cumulative
+
+shot_attempt <- seq(1, number_of_shots, by = 1)
+
+lebron_df <- data.frame(shot_attempt, lebron2cumulative, lebron3cumulative)
+#lebron_df
+
+lebron_plot <- ggplot()+
+  geom_line(data = lebron_df, aes(x = shot_attempt, 
+                              y = lebron2cumulative,
+                              col = "2 point")) +
+  geom_line(data = lebron_df, aes(x = shot_attempt,
+                              y = lebron3cumulative,
+                              col = "3 point")) +
+  labs(title = "Lebron James 2 Pointer v. 3 Pointer",
+       subtitle = "By 2020-21 Shooting Percentages",
+       y = "Points Scored",
+       x = "Shots Attempted")
+  theme_minimal()
+  
+lebron_plot
+}
+
+lebron(100)
+lebron(200)
+lebron(500)
+lebron(1000)
+lebron(10000)
+
 ```
 
