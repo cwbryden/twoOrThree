@@ -1,0 +1,85 @@
+```{r}
+library(shiny)
+library(readr)
+
+data2 <- read_csv("data2.csv")
+data2
+row1 <- data2[1, ]
+shot <- c("Make", "Miss")
+
+success2 <- 0
+success3 <- 0
+
+#basketball <- function(n, player){
+  for(i in 1: 1000){
+        #player_row <- data2[player, ]
+        shot2 <- sample(shot, size = 1, replace = TRUE, prob = c(row1$twoptmake,row1$twoptmiss))
+        shot3 <- sample(shot, size = 1, replace = TRUE, prob = c(row1$threeptmake,row1$threeptmiss))
+        
+        if(shot2 == "Make"){
+          success2 <- success2 + 1
+          points2 <- 2 * success2
+        }
+        if(shot3 == "Make"){
+          success3 <- success3 + 1
+          points3 <- 3 * success3
+        }
+  }
+  
+success <- data.frame(success2,success3)
+output <- data.frame(points2,points3)
+
+#}
+#basketball(1000,3)
+success
+output
+
+
+```
+
+```{r}
+data2 <- read_csv("data2.csv")
+data2
+row1 <- data2[1, ]
+shot <- c("Make", "Miss")
+
+success2 <- replicate(1000,0)
+success3 <- replicate(1000,0)
+
+#basketball <- function(n, player){
+  for(i in 1: 1000){
+        #player_row <- data2[player, ]
+        shot2 <- sample(shot, size = 1, replace = TRUE, prob = c(row1$twoptmake,row1$twoptmiss))
+        shot3 <- sample(shot, size = 1, replace = TRUE, prob = c(row1$threeptmake,row1$threeptmiss))
+        
+        if(shot2 == "Make"){
+          success2[i] <- success2 + 1
+          points2 <- 2 * success2
+        }
+        ifelse(shot2 == "Miss"){
+          success2[i] <- success2
+          points2 <- 2 * success2
+        }
+        
+        if(shot3 == "Make"){
+          success3[i] <- success3 + 1
+          points3 <- 3 * success3
+        }
+        else if(shot3 == "Miss"){
+          success3[i] <- success3
+          points3 <- 3 * success3
+        }
+        
+        print(success2[i])
+        #success <- data.frame(success2[i],success3[i])
+  }
+  
+
+#output <- data.frame(points2,points3)
+
+#}
+#basketball(1000,3)
+#success
+#output
+```
+
