@@ -32,9 +32,11 @@ ui <- fluidPage(
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-      textInput("shots",
+      sliderInput("shots",
                   "Number of shots:",
-                value = 100),
+                min = 1,
+                max = 100,
+                value = 20),
       
       selectInput(inputId = "player",
                   label = "What player would you like to simmulate?",
@@ -57,42 +59,66 @@ ui <- fluidPage(
   )
 )
 
+score <- function(shot_input, player){
+  
+  shot2 <- c(2, 0)
+  shot3 <- c(3, 0)
+  
+  kd2_prob <- c(data$twoptmake[which(data$X1==player)], data$twoptmiss[which(data$X1==player)])
+  kd3_prob <- c(data$threeptmake[which(data$X1==player)], data$threeptmiss[which(data$X1==player)])
+  
+  
+  kd2samp <- sample(shot2, size = shot_input, replace = TRUE, prob = kd2_prob)
+  kd3samp <- sample(shot3, size = shot_input, replace = TRUE, prob = kd3_prob)
+  
+  kd2cumulative <- cumsum(kd2samp)
+  kd3cumulative <- cumsum(kd3samp)
+  
+  # kd2cumulative
+  # kd3cumulative
+  
+  shot_attempt <- seq(1, number_of_shots, by = 1)
+  
+  kd_df <- data.frame(shot_attempt, kd2cumulative, kd3cumulative)
+  #kd_df
+}  
+
 # Define server logic required to draw a histogram
 server <- function(input, output) {
   
  shot_input <- reactive(input$shots)
  player <- reactive(input$player)
  
- score <- function(shot_input, player){
-   
-   shot2 <- c(2, 0)
-   shot3 <- c(3, 0)
-   
-   kd2_prob <- c(data$twoptmake[which(data$X1==input$player)], data$twoptmiss[which(data$X1==input$player)])
-   kd3_prob <- c(data$threeptmake[which(data$X1==input$player)], data$threeptmiss[which(data$X1==input$player)])
-   
-   
-   kd2samp <- sample(shot2, size = shot_input, replace = TRUE, prob = kd2_prob)
-   kd3samp <- sample(shot3, size = shot_input, replace = TRUE, prob = kd3_prob)
-   
-   kd2cumulative <- cumsum(kd2samp)
-   kd3cumulative <- cumsum(kd3samp)
-   
-   # kd2cumulative
-   # kd3cumulative
-   
-   shot_attempt <- seq(1, number_of_shots, by = 1)
-   
-   kd_df <- data.frame(shot_attempt, kd2cumulative, kd3cumulative)
-   #kd_df
-   
+ # score <- function(shot_input, player){
+ #   
+ #   shot2 <- c(2, 0)
+ #   shot3 <- c(3, 0)
+ #   
+ #   kd2_prob <- c(data$twoptmake[which(data$X1==player)], data$twoptmiss[which(data$X1==player)])
+ #   kd3_prob <- c(data$threeptmake[which(data$X1==player)], data$threeptmiss[which(data$X1==player)])
+ #   
+ #   
+ #   kd2samp <- sample(shot2, size = shot_input, replace = TRUE, prob = kd2_prob)
+ #   kd3samp <- sample(shot3, size = shot_input, replace = TRUE, prob = kd3_prob)
+ #   
+ #   kd2cumulative <- cumsum(kd2samp)
+ #   kd3cumulative <- cumsum(kd3samp)
+ #   
+ #   # kd2cumulative
+ #   # kd3cumulative
+ #   
+ #   shot_attempt <- seq(1, number_of_shots, by = 1)
+ #   
+ #   kd_df <- data.frame(shot_attempt, kd2cumulative, kd3cumulative)
+ #   #kd_df
+ # }  
    output$plot <- renderPlot({
        ggplot()+
-       geom_line(data = kd_df, aes(x = shot_attempt,
-                                   y = kd2cumulative),
+       geom_line(data = kd_df, aes(x = kd_df$shot_attempt,
+                                   y = kd_df$kd2cumulative),
                  col = "red") +
-       geom_line(data = kd_df, aes(x = shot_attempt,
-                                   y = kd3cumulative),
+       geom_line(data = kd_df, aes(x = kd_df$shot_attempt,
+                                   y = kd_df$kd3cumulative),
                  col = "blue") +
        labs(title = "2 Pointer v. 3 Pointer",
             subtitle = "By 2020-21 Shooting Percentages",
@@ -100,7 +126,7 @@ server <- function(input, output) {
             x = "Shots Attempted")
      theme_minimal()
    })
-}
+
     
     
 }
