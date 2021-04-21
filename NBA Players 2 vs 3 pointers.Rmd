@@ -35,10 +35,16 @@ kd3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = kd3_prob
 kd2cumulative <- cumsum(kd2samp)
 kd3cumulative <- cumsum(kd3samp)
 
-kd2cumulative
-kd3cumulative
+#kd2cumulative
+#kd3cumulative
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
+
+kd2MaxPoints <- max(kd2cumulative)
+kd3MaxPoints <- max(kd3cumulative)
+
+kd2PointsPerShot <- max(kd2cumulative)/number_of_shots
+kd3PointsPerShot <-max(kd3cumulative) / number_of_shots
 
 kd_df <- data.frame(shot_attempt, kd2cumulative, kd3cumulative)
 #kd_df
@@ -55,11 +61,13 @@ kd_plot <- ggplot()+
        y = "Points Scored",
        x = "Shots Attempted") +
   theme_minimal()
-  
 
-cat("Kevin Durant would score", max(kd2cumulative), " points by 2 pointers only, and ", max(kd3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
 
-cat("Based on ", number_of_shots,"simulated shots, Kevin Durant would average", max(kd2cumulative)/number_of_shots, "points per shot taking only 2 pointers, and ", max(kd3cumulative)/number_of_shots," pointer per shot taking only 3 pointers.")
+
+
+cat("Kevin Durant would score", kd2MaxPoints, " points by 2 pointers only, and ", kd3MaxPoints, " points from 3 pointers only, based on  ", number_of_shots, "simmulated shot attempts. While averaging,", kd2PointsPerShot, "on 2 pointers, and", kd3PointsPerShot,"on 3 pointers.")
+
+# cat("Based on ", number_of_shots,"simulated shots, Kevin Durant would average", kd2PointsPerShot, "points per shot taking only 2 pointers, and ", kd3PointsPerShot," points per shot taking only 3 pointers.")
 
 kd_plot
 }
@@ -102,6 +110,12 @@ steph3cumulative <- cumsum(steph3samp)
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
 
+steph2MaxPoints <- max(steph2cumulative)
+steph3MaxPoints <- max(steph3cumulative)
+
+steph2PointsPerShot <- max(steph2cumulative)/number_of_shots
+steph3PointsPerShot <-max(steph3cumulative) / number_of_shots
+
 steph_df <- data.frame(shot_attempt, steph2cumulative, steph3cumulative)
 #steph_df
 
@@ -118,7 +132,7 @@ steph_plot <- ggplot()+
        x = "Shots Attempted") +
   theme_minimal()
   
-cat("Steph Curry would score", max(steph2cumulative), " points by 2 pointers only, and ", max(steph3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
+cat("Steph Curry would score", steph2MaxPoints, " points by 2 pointers only, and ", steph3MaxPoints, " points from 3 pointers only, based on  ", number_of_shots, "simmulated shot attempts. While averaging,", steph2PointsPerShot, "on 2 pointers, and", steph3PointsPerShot,"on 3 pointers.")
 
 steph_plot
 
@@ -156,6 +170,12 @@ dame3cumulative <- cumsum(dame3samp)
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
 
+dame2MaxPoints <- max(dame2cumulative)
+dame3MaxPoints <- max(dame3cumulative)
+
+dame2PointsPerShot <- max(dame2cumulative)/number_of_shots
+dame3PointsPerShot <-max(dame3cumulative) / number_of_shots
+
 dame_df <- data.frame(shot_attempt, dame2cumulative, dame3cumulative)
 #dame_df
 
@@ -171,7 +191,8 @@ dame_plot <- ggplot()+
        y = "Points Scored",
        x = "Shots Attempted") +
   theme_minimal()
-cat("Damian Lillard would score", max(dame2cumulative), " points by 2 pointers only, and ", max(dame3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
+
+cat("Damian Lillard would score", dame2MaxPoints, " points by 2 pointers only, and ", dame3MaxPoints, " points from 3 pointers only, based on  ", number_of_shots, "simmulated shot attempts. While averaging,", dame2PointsPerShot, "on 2 pointers, and", dame3PointsPerShot,"on 3 pointers.")
   
 dame_plot
 }
@@ -209,6 +230,12 @@ lebron3cumulative <- cumsum(lebron3samp)
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
 
+lebron2MaxPoints <- max(lebron2cumulative)
+lebron3MaxPoints <- max(lebron3cumulative)
+
+lebron2PointsPerShot <- max(lebron2cumulative)/number_of_shots
+lebron3PointsPerShot <-max(lebron3cumulative) / number_of_shots
+
 lebron_df <- data.frame(shot_attempt, lebron2cumulative, lebron3cumulative)
 #lebron_df
 
@@ -225,7 +252,7 @@ lebron_plot <- ggplot()+
        x = "Shots Attempted") +
   theme_minimal()
 
-cat("Lebron James would score", max(lebron2cumulative), " points by 2 pointers only, and ", max(lebron3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")  
+ 
 
 lebron_plot
 }
@@ -263,6 +290,13 @@ saddiq3cumulative <- cumsum(saddiq3samp)
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
 
+
+saddiq2MaxPoints <- max(saddiq2cumulative)
+saddiqMaxPoints <- max(saddiq3cumulative)
+
+saddiq2PointsPerShot <- max(saddiq2cumulative)/number_of_shots
+saddiq3PointsPerShot <-max(saddiq3cumulative) / number_of_shots
+
 saddiq_df <- data.frame(shot_attempt, saddiq2cumulative, saddiq3cumulative)
 #lebron_df
 
@@ -279,8 +313,9 @@ saddiq_plot <- ggplot()+
        x = "Shots Attempted") +
   theme_minimal()
   
+
+
 saddiq_plot
-cat("Saddiq Bey would score", max(saddiq2cumulative), " points by 2 pointers only, and ", max(saddiq3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shots.")
 }
 
 saddiq(100)
@@ -311,13 +346,19 @@ harden3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = hard
 harden2cumulative <- cumsum(harden2samp)
 harden3cumulative <- cumsum(harden3samp)
 
-# lebron2cumulative
-# lebron3cumulative
+# harden2cumulative
+# harden3cumulative
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
 
+harden2MaxPoints <- max(harden2cumulative)
+harden3MaxPoints <- max(harden3cumulative)
+
+harden2PointsPerShot <- max(harden2cumulative)/number_of_shots
+harden3PointsPerShot <-max(harden3cumulative) / number_of_shots
+
 harden_df <- data.frame(shot_attempt, harden2cumulative, harden3cumulative)
-#lebron_df
+#harden_df
 
 harden_plot <- ggplot()+
   geom_line(data = harden_df, aes(x = shot_attempt, 
@@ -332,7 +373,7 @@ harden_plot <- ggplot()+
        x = "Shots Attempted") +
   theme_minimal()
 
-cat("James Harden would score", max(harden2cumulative), " points by 2 pointers only, and ", max(harden3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
+
   
 harden_plot
 }
@@ -370,6 +411,12 @@ kyrie3cumulative <- cumsum(kyrie3samp)
 # kyrie3cumulative
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
+
+kyrie2MaxPoints <- max(kyrie2cumulative)
+kyrie3MaxPoints <- max(kyrie3cumulative)
+
+kyrie2PointsPerShot <- max(kyrie2cumulative)/number_of_shots
+kyrie3PointsPerShot <-max(kyrie3cumulative) / number_of_shots
 
 kyrie_df <- data.frame(shot_attempt, kyrie2cumulative, kyrie3cumulative)
 #kyrie_df
@@ -425,6 +472,12 @@ trae3cumulative <- cumsum(trae3samp)
 
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
+
+trae2MaxPoints <- max(trae2cumulative)
+trae3MaxPoints <- max(trae3cumulative)
+
+trae2PointsPerShot <- max(trae2cumulative)/number_of_shots
+trae3PointsPerShot <-max(trae3cumulative) / number_of_shots
 
 trae_df <- data.frame(shot_attempt, trae2cumulative, trae3cumulative)
 
@@ -483,8 +536,14 @@ luka3cumulative <- cumsum(luka3samp)
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
 
+luka2MaxPoints <- max(luka2cumulative)
+luka3MaxPoints <- max(luka3cumulative)
+
+luka2PointsPerShot <- max(luka2cumulative)/number_of_shots
+luka3PointsPerShot <-max(lukacumulative) / number_of_shots
+
 luka_df <- data.frame(shot_attempt, luka2cumulative, luka3cumulative)
-#lebron_df
+#luka_df
 
 luka_plot <- ggplot()+
   geom_line(data = luka_df, aes(x = shot_attempt, 
@@ -499,7 +558,7 @@ luka_plot <- ggplot()+
        x = "Shots Attempted") +
   theme_minimal()
 
-cat("Luka Doncic would score", max(luka2cumulative), " points by 2 pointers only, and ", max(luka3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
+
   
 luka_plot
 }
@@ -541,8 +600,14 @@ lamelo3cumulative <- cumsum(lamelo3samp)
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
 
+lamelo2MaxPoints <- max(lamelo2cumulative)
+lamelo3MaxPoints <- max(lamelo3cumulative)
+
+lamelo2PointsPerShot <- max(lamelo2cumulative)/number_of_shots
+lamelo3PointsPerShot <-max(lamelo3cumulative) / number_of_shots
+
 lamelo_df <- data.frame(shot_attempt, lamelo2cumulative, lamelo3cumulative)
-#lebron_df
+#lamelo_df
 
 lamelo_plot <- ggplot()+
   geom_line(data = lamelo_df, aes(x = shot_attempt, 
