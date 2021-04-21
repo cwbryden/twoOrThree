@@ -53,9 +53,14 @@ kd_plot <- ggplot()+
   labs(title = "Kevin Durant 2 Pointer v. 3 Pointer",
        subtitle = "By 2020-21 Shooting Percentages",
        y = "Points Scored",
-       x = "Shots Attempted")
+       x = "Shots Attempted") +
   theme_minimal()
   
+
+cat("Kevin Durant would score", max(kd2cumulative), " points by 2 pointers only, and ", max(kd3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
+
+cat("Based on ", number_of_shots,"simulated shots, Kevin Durant would average", max(kd2cumulative)/number_of_shots, "points per shot taking only 2 pointers, and ", max(kd3cumulative)/number_of_shots," pointer per shot taking only 3 pointers.")
+
 kd_plot
 }
 
@@ -64,7 +69,7 @@ kd(200)
 kd(500)
 kd(1000)
 kd(10000)
-
+kd(100000)
 
 
 
@@ -80,7 +85,7 @@ steph <- function(number_of_shots){
 shot2 <- c(2, 0)
 shot3 <- c(3, 0)
 
-number_of_shots <- 150
+number_of_shots <- number_of_shots
 
 steph2_prob <- c(0.58, 0.42)
 steph3_prob <- c(0.422, 0.578)
@@ -110,9 +115,11 @@ steph_plot <- ggplot()+
   labs(title = "Steph Curry 2 Pointer v. 3 Pointer",
        subtitle = "By 2020-21 Shooting Percentages",
        y = "Points Scored",
-       x = "Shots Attempted")
+       x = "Shots Attempted") +
   theme_minimal()
   
+cat("Steph Curry would score", max(steph2cumulative), " points by 2 pointers only, and ", max(steph3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
+
 steph_plot
 
 }
@@ -121,7 +128,7 @@ steph(200)
 steph(500)
 steph(1000)
 steph(10000)
-
+steph(100000)
 ```
 
 ### Damian Lillard
@@ -162,8 +169,9 @@ dame_plot <- ggplot()+
   labs(title = "Damian Lillard 2 Pointer v. 3 Pointer",
        subtitle = "By 2020-21 Shooting Percentages",
        y = "Points Scored",
-       x = "Shots Attempted")
+       x = "Shots Attempted") +
   theme_minimal()
+cat("Damian Lillard would score", max(dame2cumulative), " points by 2 pointers only, and ", max(dame3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
   
 dame_plot
 }
@@ -173,6 +181,7 @@ dame(200)
 dame(500)
 dame(1000)
 dame(10000)
+dame(100000)
 ```
 
 
@@ -213,9 +222,11 @@ lebron_plot <- ggplot()+
   labs(title = "Lebron James 2 Pointer v. 3 Pointer",
        subtitle = "By 2020-21 Shooting Percentages",
        y = "Points Scored",
-       x = "Shots Attempted")
+       x = "Shots Attempted") +
   theme_minimal()
-  
+
+cat("Lebron James would score", max(lebron2cumulative), " points by 2 pointers only, and ", max(lebron3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")  
+
 lebron_plot
 }
 
@@ -224,6 +235,7 @@ lebron(200)
 lebron(500)
 lebron(1000)
 lebron(10000)
+lebron(100000)
 ```
 
 ### Saddiq Bey
@@ -246,8 +258,8 @@ saddiq3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = sadd
 saddiq2cumulative <- cumsum(saddiq2samp)
 saddiq3cumulative <- cumsum(saddiq3samp)
 
-# lebron2cumulative
-# lebron3cumulative
+# saddiq2cumulative
+# saddiq3cumulative
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
 
@@ -264,10 +276,11 @@ saddiq_plot <- ggplot()+
   labs(title = "Saddiq Bey 2 Pointer v. 3 Pointer",
        subtitle = "By 2020-21 Shooting Percentages",
        y = "Points Scored",
-       x = "Shots Attempted")
+       x = "Shots Attempted") +
   theme_minimal()
   
 saddiq_plot
+cat("Saddiq Bey would score", max(saddiq2cumulative), " points by 2 pointers only, and ", max(saddiq3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shots.")
 }
 
 saddiq(100)
@@ -275,6 +288,7 @@ saddiq(200)
 saddiq(500)
 saddiq(1000)
 saddiq(10000)
+saddiq(100000)
 ```
 
 ### James Harden
@@ -315,8 +329,10 @@ harden_plot <- ggplot()+
   labs(title = "James Harden 2 Pointer v. 3 Pointer",
        subtitle = "By 2020-21 Shooting Percentages",
        y = "Points Scored",
-       x = "Shots Attempted")
+       x = "Shots Attempted") +
   theme_minimal()
+
+cat("James Harden would score", max(harden2cumulative), " points by 2 pointers only, and ", max(harden3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
   
 harden_plot
 }
@@ -326,6 +342,7 @@ harden(200)
 harden(500)
 harden(1000)
 harden(10000)
+harden(100000)
 ```
 
 
@@ -339,45 +356,323 @@ shot3 <- c(3, 0)
 
 number_of_shots <- number_of_shots
 
-lebron2_prob <- c(0.592, 0.408)
-lebron3_prob <- c(0.386, 0.614)
+kyrie2_prob <- c(0.575, 0.425)
+kyrie3_prob <- c(0.398, 0.602)
 
 
-lebron2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = lebron2_prob)
-lebron3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = lebron3_prob)
+kyrie2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = kyrie2_prob)
+kyrie3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = kyrie3_prob)
 
-lebron2cumulative <- cumsum(lebron2samp)
-lebron3cumulative <- cumsum(lebron3samp)
+kyrie2cumulative <- cumsum(kyrie2samp)
+kyrie3cumulative <- cumsum(kyrie3samp)
 
-# lebron2cumulative
-# lebron3cumulative
+# kyrie2cumulative
+# kyrie3cumulative
 
 shot_attempt <- seq(1, number_of_shots, by = 1)
 
-lebron_df <- data.frame(shot_attempt, lebron2cumulative, lebron3cumulative)
-#lebron_df
+kyrie_df <- data.frame(shot_attempt, kyrie2cumulative, kyrie3cumulative)
+#kyrie_df
 
-lebron_plot <- ggplot()+
-  geom_line(data = lebron_df, aes(x = shot_attempt, 
-                              y = lebron2cumulative,
+kyrie_plot <- ggplot()+
+  geom_line(data = kyrie_df, aes(x = shot_attempt, 
+                              y = kyrie2cumulative,
                               col = "2 point")) +
-  geom_line(data = lebron_df, aes(x = shot_attempt,
-                              y = lebron3cumulative,
+  geom_line(data = kyrie_df, aes(x = shot_attempt,
+                              y = kyrie3cumulative,
                               col = "3 point")) +
-  labs(title = "Lebron James 2 Pointer v. 3 Pointer",
+  labs(title = "Kyrie Irving 2 Pointer v. 3 Pointer",
        subtitle = "By 2020-21 Shooting Percentages",
        y = "Points Scored",
-       x = "Shots Attempted")
+       x = "Shots Attempted") +
   theme_minimal()
+
+cat("Kyrie Irving would score", max(kyrie2cumulative), " points by 2 pointers only, and ", max(kyrie3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
   
-lebron_plot
+kyrie_plot
 }
 
-lebron(100)
-lebron(200)
-lebron(500)
-lebron(1000)
-lebron(10000)
+kyrie(100)
+kyrie(200)
+kyrie(500)
+kyrie(1000)
+kyrie(10000)
+kyrie(100000)
 
+```
+
+
+### Trae Young
+
+```{r}
+trae <- function(number_of_shots){
+
+shot2 <- c(2, 0)
+shot3 <- c(3, 0)
+
+number_of_shots <- number_of_shots
+
+trae2_prob <- c(0.472, 0.528)
+trae3_prob <- c(0.358, 0.642)
+
+
+trae2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = trae2_prob)
+trae3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = trae3_prob)
+
+trae2cumulative <- cumsum(trae2samp)
+trae3cumulative <- cumsum(trae3samp)
+
+
+
+shot_attempt <- seq(1, number_of_shots, by = 1)
+
+trae_df <- data.frame(shot_attempt, trae2cumulative, trae3cumulative)
+
+
+trae_plot <- ggplot()+
+  geom_line(data = trae_df, aes(x = shot_attempt, 
+                              y = trae2cumulative,
+                              col = "2 point")) +
+  geom_line(data = trae_df, aes(x = shot_attempt,
+                              y = trae3cumulative,
+                              col = "3 point")) +
+  labs(title = "Trae Young 2 Pointer v. 3 Pointer",
+       subtitle = "By 2020-21 Shooting Percentages",
+       y = "Points Scored",
+       x = "Shots Attempted") +
+  theme_minimal()
+
+cat("Trae Young would score", max(trae2cumulative), " points by 2 pointers only, and ", max(trae3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
+  
+trae_plot
+}
+
+trae(100)
+trae(200)
+trae(500)
+trae(1000)
+trae(10000)
+trae(100000)
+
+
+```
+
+
+## Luka Doncic
+
+```{r}
+luka <- function(number_of_shots){
+
+shot2 <- c(2, 0)
+shot3 <- c(3, 0)
+
+number_of_shots <- number_of_shots
+
+luka2_prob <- c(0.564, 0.436)
+luka3_prob <- c(0.364, 0.636)
+
+
+luka2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = luka2_prob)
+luka3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = luka3_prob)
+
+luka2cumulative <- cumsum(luka2samp)
+luka3cumulative <- cumsum(luka3samp)
+
+# luka2cumulative
+# luka3cumulative
+
+shot_attempt <- seq(1, number_of_shots, by = 1)
+
+luka_df <- data.frame(shot_attempt, luka2cumulative, luka3cumulative)
+#lebron_df
+
+luka_plot <- ggplot()+
+  geom_line(data = luka_df, aes(x = shot_attempt, 
+                              y = luka2cumulative,
+                              col = "2 point")) +
+  geom_line(data = luka_df, aes(x = shot_attempt,
+                              y = luka3cumulative,
+                              col = "3 point")) +
+  labs(title = "Luka Donic 2 Pointer v. 3 Pointer",
+       subtitle = "By 2020-21 Shooting Percentages",
+       y = "Points Scored",
+       x = "Shots Attempted") +
+  theme_minimal()
+
+cat("Luka Doncic would score", max(luka2cumulative), " points by 2 pointers only, and ", max(luka3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
+  
+luka_plot
+}
+
+luka(100)
+luka(200)
+luka(500)
+luka(1000)
+luka(10000)
+luka(100000)
+```
+
+### Lamelo Ball
+
+```{r}
+lamelo <- function(number_of_shots){
+
+shot2 <- c(2, 0)
+shot3 <- c(3, 0)
+
+number_of_shots <- number_of_shots
+
+lamelo2_prob <- c(0.503, 0.497)
+lamelo3_prob <- c(0.375, 0.625)
+
+
+lamelo2samp <- sample(shot2, size = number_of_shots, replace = TRUE, prob = lamelo2_prob)
+lamelo3samp <- sample(shot3, size = number_of_shots, replace = TRUE, prob = lamelo3_prob)
+
+
+
+lamelo2cumulative <- cumsum(lamelo2samp)
+lamelo3cumulative <- cumsum(lamelo3samp)
+
+# lamelo2cumulative
+# lamelo3cumulative
+
+
+
+shot_attempt <- seq(1, number_of_shots, by = 1)
+
+lamelo_df <- data.frame(shot_attempt, lamelo2cumulative, lamelo3cumulative)
+#lebron_df
+
+lamelo_plot <- ggplot()+
+  geom_line(data = lamelo_df, aes(x = shot_attempt, 
+                              y = lamelo2cumulative,
+                              col = "2 point")) +
+  geom_line(data = lamelo_df, aes(x = shot_attempt,
+                              y = lamelo3cumulative,
+                              col = "3 point")) +
+  labs(title = "Lamelo Ball 2 Pointer v. 3 Pointer",
+       subtitle = "By 2020-21 Shooting Percentages",
+       y = "Points Scored",
+       x = "Shots Attempted") +
+  theme_minimal()
+
+cat("LaMelo Ball would score", max(lamelo2cumulative), " points by 2 pointers only, and ", max(lamelo3cumulative), " points from only 3 pointers, based on  ", number_of_shots, "simmulated shot attempts.")
+  
+lamelo_plot
+}
+
+lamelo(100)
+lamelo(200)
+lamelo(500)
+lamelo(1000)
+lamelo(10000)
+lamelo(100000)
+```
+
+
+
+```{r}
+#### type in the function name (at the top of each chunk above), which is a players name you would like,
+#### in parenthesis include number of shots you would like to see simulated
+
+### Example 10000 kevin durant simulations would be kd(10000)
+
+##so
+
+kd(10000)
+
+## Will produce a graph that simulated 10000 kevin durant 2 and 3 pointers
+
+```
+### Players taking 100 shots
+
+```{r}
+kd(100)
+steph(100)
+dame(100)
+lebron(100)
+saddiq(100)
+harden(100)
+kyrie(100)
+trae(100)
+luka(100)
+lamelo(100)
+
+```
+
+### Players taking 200 shots
+
+```{r}
+kd(200)
+steph(200)
+dame(200)
+lebron(200)
+saddiq(200)
+harden(200)
+kyrie(200)
+trae(200)
+luka(200)
+lamelo(200)
+```
+
+### Players taking 500 shots
+
+```{r}
+kd(500)
+steph(500)
+dame(500)
+lebron(500)
+saddiq(500)
+harden(500)
+kyrie(500)
+trae(500)
+luka(500)
+lamelo(500)
+```
+
+### Players taking 1,000 shots
+
+```{r}
+kd(1000)
+steph(1000)
+dame(1000)
+lebron(1000)
+saddiq(1000)
+harden(1000)
+kyrie(1000)
+trae(1000)
+luka(1000)
+lamelo(1000)
+```
+
+### Players taking 10,000 shots
+
+```{r}
+kd(10000)
+steph(10000)
+dame(10000)
+lebron(10000)
+saddiq(10000)
+harden(10000)
+kyrie(10000)
+trae(10000)
+luka(10000)
+lamelo(10000)
+```
+
+### Players Taking 100000 shots
+
+```{r}
+kd(100000)
+steph(100000)
+dame(100000)
+lebron(100000)
+saddiq(100000)
+harden(100000)
+kyrie(100000)
+trae(100000)
+luka(100000)
+lamelo(100000)
 ```
 
